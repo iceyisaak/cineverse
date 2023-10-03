@@ -1,0 +1,128 @@
+@import '../../styles/abstract/mixins';
+
+.navbar {
+    --bar-width: 2rem;
+    --bar-height: 0.2rem;
+    --hamburger-gap: 0.3rem;
+    --foreground: hsla(0, 0%, 9%, 0.506);
+    --background: hsl(0, 0%, 88%);
+    --hamburger-margin: 2rem;
+    --animation-timing: 200ms ease-in-out;
+    --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
+
+    @include respond(md) {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+
+    & .menu {
+        &__button {
+            --x-width: calc(var(--hamburger-height) * 1.41421356237);
+            display: flex;
+            flex-direction: column;
+            gap: var(--hamburger-gap);
+            width: max-content;
+            position: absolute;
+            top: var(--hamburger-margin);
+            right: var(--hamburger-margin);
+            z-index: 2;
+            cursor: pointer;
+
+            @include respond(md) {
+                display: none;
+                position: relative;
+            }
+
+            &:has(input:checked) {
+                --foreground: hsl(0, 0%, 22%);
+                --background: hsl(0, 0%, 20%);
+            }
+
+            &:has(input:focus-visible)::before,
+            &:has(input:focus-visible)::after,
+            & .menu__toggler:focus-visible {
+                border: 0.1rem solid var(--background);
+                box-shadow: 0 0 0 0.1rem var(--foreground);
+            }
+
+
+            &::before,
+            &::after,
+            & .menu__toggler {
+                content: "";
+                width: var(--bar-width);
+                height: var(--bar-height);
+                background-color: var(--foreground);
+                border-radius: 9rem;
+                transform-origin: left center;
+                transition: opacity var(--animation-timing), width var(--animation-timing),
+                    rotate var(--animation-timing), translate var(--animation-timing),
+                    background-color var(--animation-timing);
+            }
+
+            & .menu__toggler {
+                appearance: none;
+                padding: 0;
+                margin: 0;
+                outline: none;
+                pointer-events: none;
+            }
+
+
+            &:has(input:checked)::before {
+                rotate: 45deg;
+                width: var(--x-width);
+                translate: 0 calc(var(--bar-height) / -2);
+            }
+
+
+            &:has(input:checked)::after {
+                rotate: -45deg;
+                width: var(--x-width);
+                translate: 0 calc(var(--bar-height) / 2);
+            }
+
+
+            & input:checked {
+                opacity: 0;
+                width: 0;
+            }
+
+        }
+
+        &__aside {
+            transition: translate var(--animation-timing);
+            translate: -100%;
+            padding: 0.5rem 1rem;
+            padding-top: calc(var(--hamburger-height) + var(--hamburger-margin) + 1rem);
+            background-color: var(--foreground);
+            color: var(--background);
+            width: 100vw;
+            min-height: 100vh;
+            position: absolute;
+            z-index: 20;
+
+            &.active {
+                translate: 0
+            }
+
+            @include respond(md) {
+                padding: 0;
+                min-height: unset;
+                translate: 0;
+                position: relative;
+                display: flex;
+                background-color: unset;
+                color: unset;
+                flex-flow: row-reverse;
+                width: auto;
+            }
+
+        }
+
+
+    }
+}

@@ -1,0 +1,65 @@
+@mixin absCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+//MEDIA QUERY MANAGER
+/*
+      320px - 479px:      Screen Extra Extra Small   screen-xs       <= Design Default
+      480px - 767px:      Screen Extra Small         screen-s
+      768px - 991px:      Screen Medium              screen-m        <= Standard
+      992px - 1199px:     Screen Large               screen-l
+      1200px - 1799px:    Screen Extra Large         screen-xl
+      1800px +:           Screen Extra Extra Large   screen-xxl      <= Special
+
+  1em = 16px;
+
+  ORDER:
+
+  1. Base & Typography
+  2. General Layout & Grid
+  3. Page Layout
+  4. Components
+
+  */
+
+@mixin respond($breakpoint) {
+
+    // Design Default: 300px/16 = 18.75em
+    @if $breakpoint==sm {
+        @media only screen and (min-width: 30em) {
+            //480px/16 = 30em
+            @content;
+        }
+    }
+
+    @if $breakpoint==md {
+        @media only screen and (min-width: 48em) {
+            //768px/16 = 48em
+            @content;
+        }
+    }
+
+    @if $breakpoint==lg {
+        @media only screen and (min-width: 62em) {
+            //992px/16 = 62em
+            @content;
+        }
+    }
+
+    @if $breakpoint==xl {
+        @media only screen and (min-width: 75em) {
+            //1200px/16 = 75em
+            @content;
+        }
+    }
+
+    @if $breakpoint==2xl {
+        @media only screen and (min-width: 112.5em) {
+            //1800px/16 = 112.5em
+            @content;
+        }
+    }
+}

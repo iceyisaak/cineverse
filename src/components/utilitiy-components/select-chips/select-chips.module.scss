@@ -1,0 +1,13 @@
+.selectchips {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+    padding: 0 1rem;
+    gap: 1rem 1rem;
+
+    & .chip {
+        padding: 0.5rem 1.5rem;
+        background-color: hsl(0, 6%, 84%);
+        border-radius: 0.5rem;
+    }
+}

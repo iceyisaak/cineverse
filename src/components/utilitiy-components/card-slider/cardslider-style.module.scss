@@ -1,0 +1,38 @@
+.cardslider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__content {
+        // background-color: blue;
+        padding: 2rem 0rem;
+        padding-left: 1.5rem;
+        // height: 45rem;
+        // width: 90vw;
+        overflow-x: scroll;
+        white-space: nowrap;
+        transition: transform 0.3s;
+    }
+
+    &__card {
+        display: inline-flex;
+        position: relative;
+        width: 20rem;
+        flex-flow: column;
+        margin-right: 1.4rem;
+        border-radius: 0.4rem;
+        box-shadow: 0.01rem 0.02rem 0.5rem hsl(0, 0%, 50%);
+        overflow: hidden;
+    }
+
+
+    &__text {
+        white-space: normal;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+
+}

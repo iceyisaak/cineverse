@@ -1,0 +1,67 @@
+.searchbar {
+    width: 70%;
+    position: relative;
+
+    .search__box {
+        display: flex;
+        background-color: hsl(0, 0%, 87%);
+
+        .search__input {
+            background-color: hsla(0, 0%, 0%, 0);
+            width: 100%;
+            height: 5rem;
+            padding: 1rem 1rem;
+        }
+    }
+
+    .btn {
+        width: 3rem;
+        height: 3rem;
+
+        &__clearInput {
+            margin-top: 1rem;
+            position: absolute;
+            right: 6rem;
+        }
+
+        &__runSearch {
+            position: absolute;
+            right: 0;
+            background: hsl(198, 85%, 62%);
+            width: 5rem;
+            height: 5rem;
+            padding: 1rem 1rem;
+        }
+    }
+
+
+    & .suggestion {
+        &__menu {
+            width: 100%;
+            height: 30rem;
+            overflow: auto;
+            background: hsl(60, 6%, 91%);
+            position: absolute;
+            z-index: 10;
+        }
+
+        &__list {
+            display: flex;
+            margin: 0.5rem;
+        }
+
+        &__thumbnail {
+
+            &__image {
+                width: 7.5rem;
+                height: 10rem;
+            }
+        }
+
+        &__info {
+            padding: 2.5rem 1rem;
+            width: 100%;
+
+        }
+    }
+}

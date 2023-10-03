@@ -1,0 +1,139 @@
+.carousel {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: stretch;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+
+    &__content {
+        transition: transform 0.3s;
+        white-space: nowrap;
+    }
+
+    &__link {
+        position: relative;
+        cursor: pointer;
+        z-index: 10;
+
+        // &__heading{
+
+        // }
+    }
+
+    &__item {
+        display: inline-flex;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    &__caption {
+        position: absolute;
+        white-space: pre-wrap;
+        left: 10rem;
+        top: 20rem;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    &__heading {
+        color: hsl(0, 0%, 81%);
+        margin-bottom: 2rem;
+    }
+
+    &__subheading {
+        color: hsl(0, 0%, 81%);
+        width: 20rem;
+
+        .label {
+            &:after {
+                content: '|';
+                margin: 0 0.5rem;
+            }
+
+            &:last-child:after {
+                display: none;
+            }
+        }
+    }
+
+
+
+    &__overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        width: 100vw;
+        background: radial-gradient(circle, hsla(0, 0%, 0%, 0), hsl(0, 0%, 0%));
+        z-index: 9;
+    }
+
+    &__control {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    &:hover &__arrow {
+        color: hsl(0, 0%, 92%);
+        border-radius: 50%;
+        z-index: 10;
+        display: inline;
+    }
+
+    &__arrow {
+        position: absolute;
+        top: 50%;
+        width: 3rem;
+        height: 3rem;
+        display: none;
+
+        &:hover {
+            background-color: rgb(16, 16, 217);
+            border: 0.1rem solid white;
+            cursor: pointer;
+        }
+
+        &__left {
+            left: 1rem;
+        }
+
+        &__right {
+            right: 1rem;
+        }
+    }
+
+    &__slide {
+        width: 100%;
+        object-fit: cover;
+    }
+
+    &:hover &__indicators {
+        display: flex;
+        z-index: 10;
+    }
+
+    &__indicators {
+        display: none;
+        position: absolute;
+        bottom: 2.5rem;
+
+        &__item {
+            height: 1.4rem;
+            width: 1.4rem;
+            margin: 0 0.2rem;
+            color: #a0a0a0;
+            cursor: pointer;
+            align-self: center;
+        }
+
+    }
+
+}

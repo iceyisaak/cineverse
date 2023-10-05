@@ -4,7 +4,7 @@ import { GrClose } from 'react-icons/gr'
 import { MOVIE_POSTER_URL } from '../../../api/api-constant'
 import { searchMovies } from '../../../api/movie-api'
 
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import style from './search-bar.module.scss'
 
 

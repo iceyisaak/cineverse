@@ -3,10 +3,10 @@ import { BsSearch } from 'react-icons/bs'
 import { GrClose } from 'react-icons/gr'
 import { searchMovies } from '../../../api/movie-api'
 
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { MovieData } from '../../../types'
 import style from './search-bar.module.scss'
 import { SearchSuggestionMenu } from './search-suggestion-menu'
-import { DataStatus, MovieData } from '../../../types'
 
 
 export const SearchBar = () => {

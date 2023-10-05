@@ -12,6 +12,7 @@ import { SearchSuggestionMenu } from './search-suggestion-menu'
 export const SearchBar = () => {
 
     const [searchInput, setSearchInput] = useState('')
+    const [inputFocus, setInputFocus] = useState(false)
     const { data: SearchResultsData } = searchMovies(searchInput)
     const navigate = useNavigate()
 
@@ -25,13 +26,20 @@ export const SearchBar = () => {
         setSearchInput('')
     }
 
+    const inputFocusHandler = () => {
+        setInputFocus(!inputFocus)
+    }
+
     const runSearchHandler = () => {
         if (searchInput === '') return
 
-        alert('runSearchHandler()')
-        console.log('/movies/search')
-        return navigate('/movies/search')
+        // console.log(`/movies/search?query=${searchInput}`)
+        return navigate({
+            pathname: '/movies/search'
+        })
     }
+
+    console.log('inputFocus: ', inputFocus)
 
 
     return (
@@ -43,6 +51,8 @@ export const SearchBar = () => {
                     className={`${style.search__input} text-4xl`}
                     placeholder='e.g. Superman'
                     onChange={searchInputHandler}
+                    onFocus={inputFocusHandler}
+                    onBlur={inputFocusHandler}
                     value={searchInput}
                 />
                 {
@@ -58,6 +68,7 @@ export const SearchBar = () => {
                 />
             </div>
             {searchInput !== '' &&
+                inputFocus &&
                 <SearchSuggestionMenu
                     data={SearchResultsData as MovieData}
                 />

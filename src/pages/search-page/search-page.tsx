@@ -1,9 +1,10 @@
+import { SearchBar } from "../../components/utilitiy-components/search-bar";
 
 export function SearchPage() {
     return (
         // <GenreSection />
-        <>
-            - SearchPage
-        </>
+        <section>
+            <SearchBar />
+        </section>
     )
 }

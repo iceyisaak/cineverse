@@ -1,0 +1,61 @@
+import { Link } from 'react-router-dom'
+import { MOVIE_POSTER_URL } from '../../../../api/api-constant'
+
+import { DataStatus } from '../../../../types'
+import style from '../search-bar.module.scss'
+
+
+type SearchSuggestionMenu = DataStatus
+
+export const SearchSuggestionMenu = ({ data: SearchResultsData }: SearchSuggestionMenu) => {
+    return (
+        <article className={`${style.suggestion__menu}`}>
+            {
+                SearchResultsData &&
+                    'results' in SearchResultsData &&
+                    SearchResultsData?.results.length > 0 ?
+                    SearchResultsData.results
+                        .map((searchResult) => (
+                            <Link
+                                to={`/movies/${searchResult.id.toString()}/`}
+                                className={`${style.suggestion__list}`}
+                                key={searchResult.id}
+                            >
+                                <div className={`${style.suggestion__thumbnail}`}>
+                                    <img
+                                        src={`${searchResult.poster_path ?
+                                            `${MOVIE_POSTER_URL}${searchResult.poster_path}` :
+                                            `https://placehold.co/70x100?text=N/A`
+                                            }`}
+                                        alt={`${searchResult &&
+                                            'title' in searchResult &&
+                                            searchResult.title
+                                            }`}
+                                        className={`${style.suggestion__thumbnail__image}`}
+                                    />
+                                </div>
+                                <div className={`${style.suggestion__info}`}>
+                                    <h3 className='text-3xl w-full whitespace-nowrap overflow-hidden text-ellipsis'>
+                                        {
+                                            searchResult &&
+                                            'title' in searchResult &&
+                                            searchResult?.title
+                                        }
+                                    </h3>
+                                    <p className='text-3xl'>
+                                        {
+                                            searchResult &&
+                                            'release_date' in searchResult &&
+                                            searchResult?.release_date.slice(0, 4)
+                                        }
+                                    </p>
+                                </div>
+                            </Link>
+                        )) :
+                    <p className='text-3xl absolute top-2/4 right-2/4'>
+                        No Movie Found
+                    </p>
+            }
+        </article>
+    )
+}

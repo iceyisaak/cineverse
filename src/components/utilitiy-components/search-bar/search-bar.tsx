@@ -1,11 +1,12 @@
 import { ChangeEvent, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { GrClose } from 'react-icons/gr'
-import { MOVIE_POSTER_URL } from '../../../api/api-constant'
 import { searchMovies } from '../../../api/movie-api'
 
 import { Link, useNavigate } from 'react-router-dom'
 import style from './search-bar.module.scss'
+import { SearchSuggestionMenu } from './search-suggestion-menu'
+import { DataStatus, MovieData } from '../../../types'
 
 
 export const SearchBar = () => {
@@ -57,42 +58,9 @@ export const SearchBar = () => {
                 />
             </div>
             {searchInput !== '' &&
-                <article className={`${style.suggestion__menu}`}>
-                    {
-                        SearchResultsData &&
-                            SearchResultsData?.results.length > 0 ?
-                            SearchResultsData.results
-                                .map((searchResult) => (
-                                    <Link
-                                        to={`/movies/${searchResult.id.toString()}/`}
-                                        className={`${style.suggestion__list}`}
-                                        key={searchResult.id}
-                                    >
-                                        <div className={`${style.suggestion__thumbnail}`}>
-                                            <img
-                                                src={`${searchResult.poster_path ?
-                                                    `${MOVIE_POSTER_URL}${searchResult.poster_path}` :
-                                                    `https://placehold.co/70x100?text=N/A`
-                                                    }`}
-                                                alt={`${searchResult.title}`}
-                                                className={`${style.suggestion__thumbnail__image}`}
-                                            />
-                                        </div>
-                                        <div className={`${style.suggestion__info}`}>
-                                            <h3 className='text-3xl w-full whitespace-nowrap overflow-hidden text-ellipsis'>
-                                                {searchResult?.title}
-                                            </h3>
-                                            <p className='text-3xl'>
-                                                {searchResult?.release_date.slice(0, 4)}
-                                            </p>
-                                        </div>
-                                    </Link>
-                                )) :
-                            <p className='text-3xl absolute top-2/4 right-2/4'>
-                                No Movie Found
-                            </p>
-                    }
-                </article>
+                <SearchSuggestionMenu
+                    data={SearchResultsData as MovieData}
+                />
             }
         </article >
     )

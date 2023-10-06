@@ -12,7 +12,11 @@ type SearchSuggestionMenu = DataStatus & {
 
 export const SearchSuggestionMenu = ({ data: SearchResultsData, itemClickHandler }: SearchSuggestionMenu) => {
     return (
-        <article className={`${style.suggestion__menu}`}>
+        <article className={`
+        ${style.suggestion__menu}
+            bg-gray-200
+            w-full h-96
+        `}>
             {
                 SearchResultsData &&
                     'results' in SearchResultsData &&
@@ -22,7 +26,7 @@ export const SearchSuggestionMenu = ({ data: SearchResultsData, itemClickHandler
                             <Link
                                 to={`/movies/${searchResult.id.toString()}/`}
                                 onMouseDown={itemClickHandler(`/movies/${searchResult?.id.toString()}/`)}
-                                className={`${style.suggestion__list}`}
+                                className={`${style.suggestion__list} m-2`}
                                 key={searchResult.id}
                             >
                                 <div className={`${style.suggestion__thumbnail}`}>
@@ -35,10 +39,10 @@ export const SearchSuggestionMenu = ({ data: SearchResultsData, itemClickHandler
                                             'title' in searchResult &&
                                             searchResult.title
                                             }`}
-                                        className={`${style.suggestion__thumbnail__image}`}
+                                        className={`${style.suggestion__thumbnail__image} w-full h-48`}
                                     />
                                 </div>
-                                <div className={`${style.suggestion__info}`}>
+                                <div className={`${style.suggestion__info} w-full px-4 py-10`}>
                                     <h3 className='text-3xl w-full whitespace-nowrap overflow-hidden text-ellipsis'>
                                         {
                                             searchResult &&

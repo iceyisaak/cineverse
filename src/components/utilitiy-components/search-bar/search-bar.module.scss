@@ -1,7 +1,8 @@
 .searchbar {
-    width: 70%;
-    height: 30vh;
+    // width: 70%;
+    // height: 30vh;
     position: relative;
+    background: green;
 
     .search__box {
         display: flex;
@@ -9,15 +10,15 @@
 
         .search__input {
             background-color: hsla(0, 0%, 0%, 0);
-            width: 100%;
-            height: 5rem;
-            padding: 1rem 1rem;
+            // width: 100%;
+            // height: 5rem;
+            // padding: 1rem 1rem;
         }
     }
 
     .btn {
-        width: 3rem;
-        height: 3rem;
+        // width: 3rem;
+        // height: 3rem;
 
         &__clearInput {
             margin-top: 1rem;
@@ -38,8 +39,8 @@
 
     & .suggestion {
         &__menu {
-            width: 100%;
-            height: 30rem;
+            // width: 100%;
+            // height: 30rem;
             overflow: auto;
             background: hsl(60, 6%, 91%);
             position: absolute;
@@ -48,21 +49,20 @@
 
         &__list {
             display: flex;
-            margin: 0.5rem;
+            // margin: 0.5rem;
         }
 
         &__thumbnail {
 
             &__image {
-                width: 7.5rem;
-                height: 10rem;
+                // width: 7.5rem;
+                // height: 10rem;
             }
         }
 
         &__info {
             padding: 2.5rem 1rem;
-            width: 100%;
-
+            // width: 100%;
         }
     }
 }

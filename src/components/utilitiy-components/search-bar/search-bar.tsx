@@ -63,12 +63,18 @@ export const SearchBar = () => {
 
 
     return (
-        <article className={`${style.searchbar}`}>
-            <div className={`${style.search__box}`}>
+        <article className={`${style.searchbar} w-7/12`}>
+            <div className={`${style.search__box} `}>
                 <input
                     type="text"
                     name='search'
-                    className={`${style.search__input} text-4xl`}
+                    className={`
+                        w-full
+                        h-20
+                        text-4xl
+                        p-4
+                        bg-transparent
+                    `}
                     placeholder='e.g. Superman'
                     onChange={searchInputHandler}
                     onFocus={inputFocusHandler}
@@ -78,12 +84,18 @@ export const SearchBar = () => {
                 {
                     searchInput !== '' &&
                     <GrClose
-                        className={`${style.btn} ${style.btn__clearInput}`}
+                        className={`
+                        w-12 h-12
+                        ${style.btn__clearInput}
+                        `}
                         onClick={clearInputHandler}
                     />
                 }
                 <BsSearch
-                    className={`${style.btn} ${style.btn__runSearch}`}
+                    className={`
+                    w-12 h-12
+                    ${style.btn__runSearch}
+                    `}
                     onClick={runSearchHandler}
                 />
             </div>

@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
 import { MOVIE_POSTER_URL } from '../../../../api/api-constant'
 
@@ -5,19 +6,22 @@ import { DataStatus } from '../../../../types'
 import style from '../search-bar.module.scss'
 
 
-type SearchSuggestionMenu = DataStatus
+type SearchSuggestionMenu = DataStatus & {
+    itemClickHandler: (urlPath: string) => MouseEventHandler<HTMLAnchorElement> | undefined
+}
 
-export const SearchSuggestionMenu = ({ data: SearchResultsData }: SearchSuggestionMenu) => {
+export const SearchSuggestionMenu = ({ data: SearchResultsData, itemClickHandler }: SearchSuggestionMenu) => {
     return (
         <article className={`${style.suggestion__menu}`}>
             {
                 SearchResultsData &&
                     'results' in SearchResultsData &&
                     SearchResultsData?.results.length > 0 ?
-                    SearchResultsData.results
+                    SearchResultsData?.results
                         .map((searchResult) => (
                             <Link
                                 to={`/movies/${searchResult.id.toString()}/`}
+                                onMouseDown={itemClickHandler(`/movies/${searchResult?.id.toString()}/`)}
                                 className={`${style.suggestion__list}`}
                                 key={searchResult.id}
                             >
@@ -57,5 +61,6 @@ export const SearchSuggestionMenu = ({ data: SearchResultsData }: SearchSuggesti
                     </p>
             }
         </article>
+
     )
 }

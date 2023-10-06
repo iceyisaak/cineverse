@@ -1,18 +1,21 @@
 import { ChangeEvent, useState } from 'react'
-import { BsSearch } from 'react-icons/bs'
-import { GrClose } from 'react-icons/gr'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 import { searchMovies } from '../../../api/movie-api'
 
-import { useNavigate } from 'react-router-dom'
+import { BsSearch } from 'react-icons/bs'
+import { GrClose } from 'react-icons/gr'
+import { SearchSuggestionMenu } from './search-suggestion-menu'
+
 import { MovieData } from '../../../types'
 import style from './search-bar.module.scss'
-import { SearchSuggestionMenu } from './search-suggestion-menu'
 
 
 export const SearchBar = () => {
 
     const [searchInput, setSearchInput] = useState('')
     const [inputFocus, setInputFocus] = useState(false)
+    const [showSuggestionMenu, setShowSuggestionMenu] = useState(false)
+
     const { data: SearchResultsData } = searchMovies(searchInput)
     const navigate = useNavigate()
 
@@ -26,20 +29,37 @@ export const SearchBar = () => {
         setSearchInput('')
     }
 
+
     const inputFocusHandler = () => {
-        setInputFocus(!inputFocus)
+        setInputFocus(true)
+        showSuggestionMenuHandler()
     }
+
+    const inputBlurHandler = () => {
+        setInputFocus(false)
+        showSuggestionMenuHandler()
+    }
+
+
+    const showSuggestionMenuHandler = () => {
+        setShowSuggestionMenu(!showSuggestionMenu)
+    }
+
+    const itemClickHandler = (urlPath: string) => () => {
+        navigate(urlPath)
+    }
+
 
     const runSearchHandler = () => {
         if (searchInput === '') return
 
-        // console.log(`/movies/search?query=${searchInput}`)
         return navigate({
-            pathname: '/movies/search'
+            pathname: '/movies/search',
+            search: createSearchParams({
+                query: searchInput
+            }).toString()
         })
     }
-
-    console.log('inputFocus: ', inputFocus)
 
 
     return (
@@ -52,7 +72,7 @@ export const SearchBar = () => {
                     placeholder='e.g. Superman'
                     onChange={searchInputHandler}
                     onFocus={inputFocusHandler}
-                    onBlur={inputFocusHandler}
+                    onBlur={inputBlurHandler}
                     value={searchInput}
                 />
                 {
@@ -67,10 +87,12 @@ export const SearchBar = () => {
                     onClick={runSearchHandler}
                 />
             </div>
-            {searchInput !== '' &&
+            {
+                searchInput !== '' &&
                 inputFocus &&
                 <SearchSuggestionMenu
                     data={SearchResultsData as MovieData}
+                    itemClickHandler={itemClickHandler}
                 />
             }
         </article >

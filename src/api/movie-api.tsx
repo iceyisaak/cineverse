@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
-import { APIKEY, BASEURL } from './api-constant'
+import { APIKEY, BASEURL, HEADER_CONFIG } from './api-constant'
 
 import { type CinemaType, type GenreData, type MovieData, type MovieDetailData } from '../types'
 // import { type GenreData } from "../types/genredata-schema"
@@ -154,6 +154,7 @@ export const searchMovies = (QUERY?: string | undefined) => {
         queryFn: async () => {
             const response = await axios.get(APIURL)
             const data: unknown = await response.data
+            // console.log(response)
             return data as MovieData
         },
         enabled: QUERY !== undefined && QUERY !== ''

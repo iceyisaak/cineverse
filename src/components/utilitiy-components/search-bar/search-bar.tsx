@@ -1,5 +1,5 @@
-import { ChangeEvent, useState } from 'react'
-import { createSearchParams, useNavigate } from 'react-router-dom'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { searchMovies } from '../../../api/movie-api'
 
 import { BsSearch } from 'react-icons/bs'
@@ -10,6 +10,10 @@ import { MovieData } from '../../../types'
 import style from './search-bar.module.scss'
 
 
+// type SearchBar = {
+//     searchParams?: string
+// }
+
 export const SearchBar = () => {
 
     const [searchInput, setSearchInput] = useState('')
@@ -18,11 +22,22 @@ export const SearchBar = () => {
 
     const { data: SearchResultsData } = searchMovies(searchInput)
     const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+
+    const searchParamsString = searchParams.get('query')?.toString()
+
+
+    useEffect(() => {
+        if (searchParamsString) {
+            return setSearchInput(searchParamsString)
+        }
+    }, [])
 
 
     const searchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const searchTerm = e.target.value
         setSearchInput(searchTerm)
+        // setSearchParams(searchTerm)
     }
 
     const clearInputHandler = () => {

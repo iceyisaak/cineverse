@@ -1,0 +1,16 @@
+.search__page {
+
+    .result {
+        &__card {
+            width: 22rem;
+        }
+
+    }
+
+    .tile {
+        &__img {
+            width: 20rem;
+            height: 30rem;
+        }
+    }
+}

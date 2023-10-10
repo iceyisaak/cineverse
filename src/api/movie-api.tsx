@@ -144,17 +144,18 @@ export const getMovieDetail = (MOVIE_ID?: number | undefined) => {
 
 }
 
-export const searchMovies = (QUERY?: string | undefined) => {
+export const searchMovies = (QUERY?: string | undefined, RESULT_PAGE?: number | undefined) => {
+
+    console.log('RESULT_PAGE: ', RESULT_PAGE)
 
     const APINAME = 'search'
-    const APIURL = `${BASEURL}/${APINAME}/${CINEMA_TYPE}${APIKEY}&query=${QUERY}`
+    const APIURL = `${BASEURL}/${APINAME}/${CINEMA_TYPE}${APIKEY}&query=${QUERY}&page=${RESULT_PAGE}`
 
     return useQuery({
-        queryKey: [QUERY],
+        queryKey: [QUERY, RESULT_PAGE],
         queryFn: async () => {
             const response = await axios.get(APIURL)
             const data: unknown = await response.data
-            // console.log(response)
             return data as MovieData
         },
         enabled: QUERY !== undefined && QUERY !== ''

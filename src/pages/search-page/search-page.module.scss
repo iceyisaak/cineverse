@@ -1,8 +1,13 @@
 .search__page {
 
     .result {
+
+        &__container {
+            max-width: 110rem;
+        }
+
         &__card {
-            width: 22rem;
+            width: 20rem;
         }
 
     }
@@ -12,5 +17,9 @@
             width: 20rem;
             height: 30rem;
         }
+    }
+
+    .indicator {
+        cursor: pointer;
     }
 }

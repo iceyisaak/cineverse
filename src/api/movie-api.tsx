@@ -146,9 +146,6 @@ export const getMovieDetail = (MOVIE_ID?: number | undefined) => {
 
 export const searchMovies = (QUERY?: string | undefined, RESULT_PAGE?: number | undefined) => {
 
-    console.log('QUERY: ', QUERY)
-    console.log('RESULT_PAGE: ', RESULT_PAGE)
-
     const APINAME = 'search'
     const APIURL = `${BASEURL}/${APINAME}/${CINEMA_TYPE}${APIKEY}&query=${QUERY}${RESULT_PAGE !== undefined ? `&page=${RESULT_PAGE}` : ''}`
 

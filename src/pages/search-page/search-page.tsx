@@ -16,7 +16,9 @@ export function SearchPage() {
     const [searchParams, setSearchParams] = useSearchParams()
     const searchParamsString = searchParams.get('query')?.toString()
     // const location = useLocation()
-    console.log('currentPage: ', currentPage)
+    // console.log('currentPage: ', currentPage)
+    // console.log('searchParamsString: ', searchParamsString)
+
     const { data: SearchMoviesData } = searchMovies(searchParamsString, currentPage)
 
 
@@ -68,7 +70,14 @@ export function SearchPage() {
                 <article className="flex flex-wrap">
                     {
                         SearchMoviesData?.results.map((movie) => (
-                            <Link key={movie.id} className={`${style.result__card} flex flex-wrap flex-col py-8`} to={`/movies/${movie.id.toString()}`}>
+                            <Link
+                                key={movie.id}
+                                className={`
+                                  ${style.result__card}
+                                  flex flex-wrap flex-col py-8
+                                `}
+                                to={`/movies/${movie.id.toString()}`}
+                            >
                                 <div className="inline-flex">
                                     <img
                                         src={`${movie.poster_path ?

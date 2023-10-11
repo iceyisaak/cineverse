@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
-import { APIKEY, BASEURL, HEADER_CONFIG } from './api-constant'
+import { APIKEY, BASEURL } from './api-constant'
 
 import { type CinemaType, type GenreData, type MovieData, type MovieDetailData } from '../types'
 // import { type GenreData } from "../types/genredata-schema"
@@ -146,10 +146,11 @@ export const getMovieDetail = (MOVIE_ID?: number | undefined) => {
 
 export const searchMovies = (QUERY?: string | undefined, RESULT_PAGE?: number | undefined) => {
 
+    console.log('QUERY: ', QUERY)
     console.log('RESULT_PAGE: ', RESULT_PAGE)
 
     const APINAME = 'search'
-    const APIURL = `${BASEURL}/${APINAME}/${CINEMA_TYPE}${APIKEY}&query=${QUERY}&page=${RESULT_PAGE}`
+    const APIURL = `${BASEURL}/${APINAME}/${CINEMA_TYPE}${APIKEY}&query=${QUERY}${RESULT_PAGE !== undefined ? `&page=${RESULT_PAGE}` : ''}`
 
     return useQuery({
         queryKey: [QUERY, RESULT_PAGE],

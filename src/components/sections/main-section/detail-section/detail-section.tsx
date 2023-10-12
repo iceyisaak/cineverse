@@ -154,7 +154,6 @@ export const DetailSection = ({ data, isLoading, isError }: DataStatus) => {
                     }
 
 
-
                     {data && 'tagline' in data && data?.tagline !== '' &&
                         <p className="mb-6 text-xl">
                             <span className="font-bold text-xl">Tagline: </span>

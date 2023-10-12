@@ -1,24 +1,20 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { MOVIE_POSTER_URL } from "../../api/api-constant";
 import { searchMovies } from "../../api/movie-api";
 import { SearchSection } from "../../components/sections/main-section/search-section";
-import { Breadcrumbs } from "../../components/utilitiy-components/breadcrumbs/breadcrumbs";
-import { MovieData } from "../../types";
+import { Breadcrumbs } from "../../components/utilitiy-components/breadcrumbs";
+import { PaginationPanel } from "../../components/utilitiy-components/pagination-panel";
 
-import { useEffect, useState } from "react";
-import { BsChevronDoubleLeft, BsChevronDoubleRight, BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { MovieData } from "../../types";
 import style from './search-page.module.scss';
+
 
 export function SearchPage() {
 
-    // const { movieSearchTerm } = useParams()
     const [currentPage, setCurrentPage] = useState(1)
     const [searchParams, setSearchParams] = useSearchParams()
     const searchParamsString = searchParams.get('query')?.toString()
-    const navigate = useNavigate()
-    // const location = useLocation()
-    // console.log('currentPage: ', currentPage)
-    // console.log('searchParamsString: ', searchParamsString)
 
     const { data: SearchMoviesData } = searchMovies(searchParamsString, currentPage)
 
@@ -62,10 +58,8 @@ export function SearchPage() {
 
 
     return (
-        // <GenreSection />
         <>
             <SearchSection />
-            {/* {movieSearchTerm} */}
             <Breadcrumbs
                 data={SearchMoviesData as MovieData}
             />
@@ -87,9 +81,9 @@ export function SearchPage() {
                                         <Link
                                             key={movie.id}
                                             className={`
-                                  ${style.result__card}
-                                  flex flex-wrap flex-col
-                                `}
+                                                ${style.result__card}
+                                                flex flex-wrap flex-col
+                                            `}
                                             to={`/movies/${movie.id.toString()}`}
                                         >
                                             <div className="inline-flex">
@@ -113,26 +107,19 @@ export function SearchPage() {
                                     ))
                                 }
                             </article>
-
-
-                            <article className="flex justify-center items-center w-full mt-32">
-
-                                <BsChevronDoubleLeft size={20} onClick={firstPageHandler} className={`${style.indicator}`} />
-                                <BsChevronLeft size={20} onClick={prevPageHandler} className={`${style.indicator}`} />
-
-                                <p className="mx-10">
-                                    Page: {currentPage} of {SearchMoviesData?.total_pages}
-                                </p>
-
-                                <BsChevronRight size={20} onClick={nextPageHandler} className={`${style.indicator}`} />
-                                <BsChevronDoubleRight size={20} onClick={lastPageHandler} className={`${style.indicator}`} />
-
-                            </article>
-
                         </div>
                 }
 
             </section >
+
+            <PaginationPanel
+                currentPage={currentPage}
+                firstPageHandler={firstPageHandler}
+                prevPageHandler={prevPageHandler}
+                nextPageHandler={nextPageHandler}
+                lastPageHandler={lastPageHandler}
+                data={SearchMoviesData as MovieData}
+            />
         </>
     )
 }

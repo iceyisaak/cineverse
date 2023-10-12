@@ -1,0 +1,1 @@
+export { PaginationPanel } from './pagination-panel'

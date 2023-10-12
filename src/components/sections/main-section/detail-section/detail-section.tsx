@@ -205,10 +205,11 @@ export const DetailSection = ({ data, isLoading, isError }: DataStatus) => {
 
                 </div>
 
-
                 <div className="basis-1/2">
                     <img
-                        src={`${MOVIE_POSTER_URL}${data && 'poster_path' in data && data.poster_path}`}
+                        src={`${data && 'poster_path' in data && data.poster_path === null ?
+                            `https://placehold.co/500x750?text=No+Poster+Available` :
+                            `${MOVIE_POSTER_URL}${data && 'poster_path' in data && data.poster_path}`}`}
                         alt={`${data && 'title' in data && data.title}`}
                         title={`${data && 'title' in data && data.title}`}
                     />

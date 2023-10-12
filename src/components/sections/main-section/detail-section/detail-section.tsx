@@ -5,6 +5,9 @@ import { DataStatus } from "../../../../types"
 
 
 export const DetailSection = ({ data, isLoading, isError }: DataStatus) => {
+
+    console.log(data)
+
     return (
         <section className="px-6 pb-32">
 
@@ -34,7 +37,7 @@ export const DetailSection = ({ data, isLoading, isError }: DataStatus) => {
                     </div>
 
 
-                    {data && 'genres' in data &&
+                    {data && 'genres' in data && data.genres.length > 0 &&
                         <div className="mb-16">
                             <h3 className="text-xl font-bold mb-3">
                                 Genres:
@@ -49,7 +52,7 @@ export const DetailSection = ({ data, isLoading, isError }: DataStatus) => {
                         </div>
                     }
 
-                    {data && 'release_date' in data &&
+                    {data && 'release_date' in data && data.release_date !== '' &&
                         <p className="mb-6 text-xl">
                             <span className="font-bold text-xl">Release Date: </span>
                             {data?.release_date}
@@ -93,6 +96,7 @@ export const DetailSection = ({ data, isLoading, isError }: DataStatus) => {
                         </p>
                     }
 
+
                     {data && 'episode_run_time' in data &&
                         <p className="mb-6 text-xl">
                             <span className="font-bold text-xl">Episode Runtime: </span>
@@ -105,16 +109,19 @@ export const DetailSection = ({ data, isLoading, isError }: DataStatus) => {
                         {data && 'original_language' in data && data?.original_language.toUpperCase()}
                     </p>
 
-                    <div className="mb-10">
-                        <h3 className="text-xl font-bold mb-3">Spoken Language: </h3>
-                        <ul className="flex">
-                            {data && 'spoken_languages' in data && data?.spoken_languages.map((language) => (
-                                <li key={language.iso_639_1} className="px-8 py-1 rounded-md bg-gray-100 mr-4 text-xl">
-                                    {language.english_name}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+
+                    {data && 'spoken_languages' in data && data.spoken_languages.length > 0 &&
+                        <div className="mb-10">
+                            <h3 className="text-xl font-bold mb-3">Spoken Language: </h3>
+                            <ul className="flex">
+                                {data?.spoken_languages.map((language) => (
+                                    <li key={language.iso_639_1} className="px-8 py-1 rounded-md bg-gray-100 mr-4 text-xl">
+                                        {language.english_name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    }
 
 
                     {data && 'homepage' in data && data?.homepage !== '' &&
@@ -163,14 +170,14 @@ export const DetailSection = ({ data, isLoading, isError }: DataStatus) => {
                         </p>
                     }
 
-                    {data && 'vote_average' in data &&
+                    {data && 'vote_average' in data && data.vote_average > 0 &&
                         <p className="mb-6 text-xl">
                             <span className="font-bold text-xl">Vote Average: </span>
                             {data?.vote_average}
                         </p>
                     }
 
-                    {data && 'vote_count' in data &&
+                    {data && 'vote_count' in data && data.vote_count > 0 &&
                         <p className="mb-6 text-xl">
                             <span className="font-bold text-xl">Vote Count: </span>
                             {data?.vote_count}

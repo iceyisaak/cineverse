@@ -60,9 +60,11 @@ export const SearchSuggestionMenu = ({ data: SearchResultsData, itemClickHandler
                                 </div>
                             </Link>
                         )) :
-                    <p className='text-3xl absolute top-2/4 right-2/4'>
-                        No Movie Found
-                    </p>
+                    <div className='flex justify-center items-center h-full'>
+                        <p className='text-5xl'>
+                            No Movie Found
+                        </p>
+                    </div>
             }
         </article>
 

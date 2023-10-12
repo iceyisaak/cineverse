@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEventHandler, SyntheticEvent, useEffect, useState } from 'react'
+import { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { searchMovies } from '../../../api/movie-api'
 
@@ -10,15 +10,13 @@ import { MovieData } from '../../../types'
 import style from './search-bar.module.scss'
 
 
-// type SearchBar = {
-//     searchParams?: string
-// }
 
 export const SearchBar = () => {
 
     const [searchInput, setSearchInput] = useState('')
     const [inputFocus, setInputFocus] = useState(false)
     const [showSuggestionMenu, setShowSuggestionMenu] = useState(false)
+    const inputRef = useRef<HTMLInputElement>(null)
 
     const { data: SearchResultsData } = searchMovies(searchInput)
     const navigate = useNavigate()
@@ -33,18 +31,15 @@ export const SearchBar = () => {
         }
     }, [])
 
-
     const searchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         const searchTerm = e.target.value
         setSearchInput(searchTerm)
-        // runSearchHandler()
     }
 
     const clearInputHandler = () => {
         setSearchInput('')
     }
-
 
     const inputFocusHandler = () => {
         setInputFocus(true)
@@ -56,7 +51,6 @@ export const SearchBar = () => {
         showSuggestionMenuHandler()
     }
 
-
     const showSuggestionMenuHandler = () => {
         setShowSuggestionMenu(!showSuggestionMenu)
     }
@@ -65,11 +59,10 @@ export const SearchBar = () => {
         navigate(urlPath)
     }
 
-
     const runSearchHandler = (e: SyntheticEvent) => {
         e.preventDefault()
+        inputRef.current?.blur()
         if (searchInput === '') return
-        inputBlurHandler()
 
         return navigate({
             pathname: '/movies/search',
@@ -85,6 +78,7 @@ export const SearchBar = () => {
         <article className={`${style.searchbar} w-7/12`}>
             <form onSubmit={runSearchHandler} className={`${style.search__box} `}>
                 <input
+                    ref={inputRef}
                     type="text"
                     name='search'
                     className={`
@@ -113,10 +107,7 @@ export const SearchBar = () => {
 
                 <button type='submit' className={`${style.btn__runSearch}`}>
                     <BsSearch
-                        className={`
-
-                    w-12 h-12
-                    `}
+                        className={`w-12 h-12`}
                         onClick={runSearchHandler}
                     />
                 </button>
@@ -124,7 +115,6 @@ export const SearchBar = () => {
             {
                 searchInput !== '' &&
                 inputFocus &&
-                // showSuggestionMenu &&
                 <SearchSuggestionMenu
                     data={SearchResultsData as MovieData}
                     itemClickHandler={itemClickHandler}

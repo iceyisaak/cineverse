@@ -6,11 +6,18 @@ import { DataStatus } from "../../../../types"
 
 export const DetailSection = ({ data, isLoading, isError }: DataStatus) => {
 
-    console.log(data)
+
+    const poster_path = `${MOVIE_POSTER_URL}${data &&
+        'poster_path' in data &&
+        data?.poster_path}`
+
+    const poster_path_checked = data &&
+        'poster_path' in data &&
+        data?.poster_path && poster_path
+
 
     return (
         <section className="px-6 pb-32">
-
 
             {isLoading && 'Loading....'}
             {isError && 'Something went wrong.'}
@@ -214,9 +221,9 @@ export const DetailSection = ({ data, isLoading, isError }: DataStatus) => {
 
                 <div className="basis-1/2">
                     <img
-                        src={`${data && 'poster_path' in data && data.poster_path === null ?
+                        src={`${poster_path_checked === null ?
                             `https://placehold.co/500x750?text=No+Poster+Available` :
-                            `${MOVIE_POSTER_URL}${data && 'poster_path' in data && data.poster_path}`}`}
+                            `${poster_path_checked}`}`}
                         alt={`${data && 'title' in data && data.title}`}
                         title={`${data && 'title' in data && data.title}`}
                     />

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEventHandler, SyntheticEvent, useEffect, useState } from 'react'
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { searchMovies } from '../../../api/movie-api'
 
@@ -35,9 +35,10 @@ export const SearchBar = () => {
 
 
     const searchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
         const searchTerm = e.target.value
         setSearchInput(searchTerm)
-        // setSearchParams(searchTerm)
+        // runSearchHandler()
     }
 
     const clearInputHandler = () => {
@@ -65,8 +66,10 @@ export const SearchBar = () => {
     }
 
 
-    const runSearchHandler = () => {
+    const runSearchHandler = (e: SyntheticEvent) => {
+        e.preventDefault()
         if (searchInput === '') return
+        inputBlurHandler()
 
         return navigate({
             pathname: '/movies/search',
@@ -77,9 +80,10 @@ export const SearchBar = () => {
     }
 
 
+
     return (
         <article className={`${style.searchbar} w-7/12`}>
-            <div className={`${style.search__box} `}>
+            <form onSubmit={runSearchHandler} className={`${style.search__box} `}>
                 <input
                     type="text"
                     name='search'
@@ -106,17 +110,21 @@ export const SearchBar = () => {
                         onClick={clearInputHandler}
                     />
                 }
-                <BsSearch
-                    className={`
+
+                <button type='submit' className={`${style.btn__runSearch}`}>
+                    <BsSearch
+                        className={`
+
                     w-12 h-12
-                    ${style.btn__runSearch}
                     `}
-                    onClick={runSearchHandler}
-                />
-            </div>
+                        onClick={runSearchHandler}
+                    />
+                </button>
+            </form>
             {
                 searchInput !== '' &&
                 inputFocus &&
+                // showSuggestionMenu &&
                 <SearchSuggestionMenu
                     data={SearchResultsData as MovieData}
                     itemClickHandler={itemClickHandler}

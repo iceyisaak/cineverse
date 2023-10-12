@@ -18,6 +18,7 @@
 
 
 
+
     & .menu {
         &__button {
             --x-width: calc(var(--hamburger-height) * 1.41421356237);
@@ -108,6 +109,13 @@
             &.active {
                 translate: 0
             }
+
+
+
+
+
+
+
 
             @include respond(md) {
                 padding: 0;

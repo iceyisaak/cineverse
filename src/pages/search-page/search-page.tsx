@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { MOVIE_POSTER_URL } from "../../api/api-constant";
 import { searchMovies } from "../../api/movie-api";
 import { SearchSection } from "../../components/sections/main-section/search-section";
@@ -15,6 +15,7 @@ export function SearchPage() {
     const [currentPage, setCurrentPage] = useState(1)
     const [searchParams, setSearchParams] = useSearchParams()
     const searchParamsString = searchParams.get('query')?.toString()
+    const navigate = useNavigate()
     // const location = useLocation()
     // console.log('currentPage: ', currentPage)
     // console.log('searchParamsString: ', searchParamsString)
@@ -50,6 +51,13 @@ export function SearchPage() {
         searchParams.set("page", currentPage.toString())
         setSearchParams(searchParams)
     }
+
+
+    useEffect(() => {
+        if (currentPage > SearchMoviesData?.total_pages!) {
+            setCurrentPage(1)
+        }
+    }, [SearchMoviesData?.total_pages!])
 
 
 

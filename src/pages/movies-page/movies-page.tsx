@@ -9,7 +9,7 @@ import {
 } from '../../api/movie-api'
 import { HeroSection } from '../../components/sections'
 import { GenreSection } from '../../components/sections/main-section/genre-section'
-import { SearchSection } from '../../components/sections/main-section/search-section'
+import { SearchBarSection } from '../../components/sections/main-section/searchbar-section'
 import { ShowCaseSection } from '../../components/sections/main-section/showcase-section'
 import { type GenreData, type MovieData } from '../../types'
 
@@ -33,7 +33,7 @@ export const MoviesPage = () => {
                 isLoading={NowPlayingMoviesLoading}
                 isError={NowPlayingMoviesError}
             />
-            <SearchSection
+            <SearchBarSection
                 sectionHeading='Search Movies'
             />
             <ShowCaseSection

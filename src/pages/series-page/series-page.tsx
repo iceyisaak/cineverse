@@ -1,7 +1,7 @@
 import { getAiringTodaySeries, getOnTheAirSeries, getSeriesGenres, getTopRatedSeries } from "../../api/series-api"
 import { HeroSection } from "../../components/sections"
 import { GenreSection } from "../../components/sections/main-section/genre-section"
-import { SearchSection } from "../../components/sections/main-section/search-section"
+import { SearchBarSection } from "../../components/sections/main-section/searchbar-section"
 import { ShowCaseSection } from "../../components/sections/main-section/showcase-section"
 import { type GenreData, type SeriesData } from "../../types"
 
@@ -23,7 +23,7 @@ export const SeriesPage = () => {
                 isError={AiringTodaySeriesError}
             />
 
-            <SearchSection
+            <SearchBarSection
                 sectionHeading='Search Series'
             />
 

@@ -1,0 +1,23 @@
+.search__page {
+
+    .result {
+
+        &__container {
+            max-width: 110rem;
+        }
+
+        &__card {
+            width: 20rem;
+        }
+
+    }
+
+    .tile {
+        &__img {
+            width: 20rem;
+            height: 30rem;
+        }
+    }
+
+
+}

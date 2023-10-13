@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { MOVIE_POSTER_URL } from "../../api/api-constant";
+import { useSearchParams } from "react-router-dom";
 import { searchMovies } from "../../api/movie-api";
-import { SearchSection } from "../../components/sections/main-section/search-section";
+import { SearchBarSection } from "../../components/sections/main-section/searchbar-section";
 import { Breadcrumbs } from "../../components/utilitiy-components/breadcrumbs";
 import { PaginationPanel } from "../../components/utilitiy-components/pagination-panel";
 
+import SearchSection from "../../components/sections/main-section/search-section/search-section";
 import { MovieData } from "../../types";
-import style from './search-page.module.scss';
 
 
 export function SearchPage() {
@@ -17,7 +16,6 @@ export function SearchPage() {
     const searchParamsString = searchParams.get('query')?.toString()
 
     const { data: SearchMoviesData } = searchMovies(searchParamsString, currentPage)
-
 
     const nextPageHandler = () => {
         if (currentPage === SearchMoviesData?.total_pages) return
@@ -57,61 +55,16 @@ export function SearchPage() {
 
 
 
+
     return (
         <>
-            <SearchSection />
+            <SearchBarSection />
             <Breadcrumbs
                 data={SearchMoviesData as MovieData}
             />
-            <section className={`${style.search__page} mt-32 mb-40 px-4 flex flex-wrap justify-center`}>
-
-                {
-                    SearchMoviesData?.total_results === 0 ?
-                        <p className="text-6xl">
-                            - No Movies Found -
-                        </p> :
-
-                        <div className={`${style.result__container} flex flex-col justify-center self-center w-10/12`}>
-                            <p className="text-2xl mb-6">
-                                Total Results: {SearchMoviesData?.total_results} Item(s)
-                            </p>
-                            <article className={`inline-flex flex-wrap gap-8`}>
-                                {
-                                    SearchMoviesData?.results.map((movie) => (
-                                        <Link
-                                            key={movie.id}
-                                            className={`
-                                                ${style.result__card}
-                                                flex flex-wrap flex-col
-                                            `}
-                                            to={`/movies/${movie.id.toString()}`}
-                                        >
-                                            <div className="inline-flex">
-                                                <img
-                                                    src={`${movie.poster_path ?
-                                                        `${MOVIE_POSTER_URL}${movie.poster_path}` :
-                                                        'https://placehold.co/200x300?text=No Poster Available'
-                                                        }`}
-                                                    className={`${style.tile__img}`}
-                                                />
-                                            </div>
-                                            <div className="flex flex-wrap flex-col">
-                                                <p className="break-words text-2xl ">
-                                                    {movie.title}
-                                                </p>
-                                                <p>
-                                                    {movie?.release_date.slice(0, 4) || '-'}
-                                                </p>
-                                            </div>
-                                        </Link>
-                                    ))
-                                }
-                            </article>
-                        </div>
-                }
-
-            </section >
-
+            <SearchSection
+                data={SearchMoviesData as MovieData}
+            />
             <PaginationPanel
                 currentPage={currentPage}
                 firstPageHandler={firstPageHandler}

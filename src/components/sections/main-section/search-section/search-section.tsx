@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
-import { DataStatus, MovieData } from "../../../../types"
+import { DataStatus } from "../../../../types"
 
 
-import style from './search-section.module.scss'
 import { MOVIE_POSTER_URL } from "../../../../api/api-constant"
+import style from './search-section.module.scss'
 
 
 type SearchSection = DataStatus

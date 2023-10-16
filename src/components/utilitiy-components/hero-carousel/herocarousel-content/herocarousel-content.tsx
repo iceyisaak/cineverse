@@ -95,28 +95,7 @@ export const HeroCarouselContent = ({ currentIndex, isLoading, data, itemLimit }
                                                 ))}
                                             </Link>
                                         }
-                                        {
-                                            'name' in movie &&
-                                            <Link
-                                                to={`/series/${movie.id.toString()}/`}
-                                                className={`${style.carousel__subheading}
-                                                text-2xl mt-5
-                                                `}
-                                            >
-                                                {/* {movie?.genre_ids.map(genre => (
-                                                    <span key={genre} className={`${style.label}`}>
-                                                        {SeriesGenres?.genres.map(movie_genre => (
-                                                            movie_genre.name &&
-                                                            genre === movie_genre.id
-                                                            &&
-                                                            movie_genre.name
-                                                        ))
-                                                        }
-                                                    </span>
-                                                ))} */}
-                                                {movie.overview}
-                                            </Link>
-                                        }
+
 
                                     </p>
                                 </div>

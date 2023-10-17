@@ -37,7 +37,7 @@ export const SearchSuggestionMenu = ({ data: SearchResultsData, itemClickHandler
                                             }`}
                                         alt={`${searchResult &&
                                             'title' in searchResult &&
-                                            searchResult.title
+                                            searchResult?.title
                                             }`}
                                         className={`${style.suggestion__thumbnail__image} w-full h-48`}
                                     />

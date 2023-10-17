@@ -1,3 +1,4 @@
+// import { DataStatus } from "../../../../types"
 import { SearchBar } from "../../../utilitiy-components/search-bar"
 
 
@@ -15,6 +16,7 @@ export const SearchBarSection = ({ sectionHeading }: SearchSection) => {
                 </h1>
             }
             <SearchBar
+            // data={data}
             />
         </section>
     )

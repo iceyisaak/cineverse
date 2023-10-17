@@ -19,13 +19,13 @@ export const DetailPage = () => {
 
   if (movieId) {
     movie_id_number = parseInt(movieId)
-
   } else if (seriesId) {
     series_id_number = parseInt(seriesId)
   }
 
   const { data: GetMovieDetailData, isLoading: GetMovieDetailLoading, isError: GetMovieDetailError } = getMovieDetail(movie_id_number)
   const { data: GetSeriesDetailData, isLoading: GetSeriesDetailLoading, isError: GetSeriesDetailError } = getSeriesDetail(series_id_number)
+
 
   return (
     <>

@@ -1,44 +1,75 @@
 import { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from 'react'
-import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom'
-import { searchMovies } from '../../../api/movie-api'
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+// import { searchMovies } from '../../../api/movie-api'
 
 import { BsSearch } from 'react-icons/bs'
 import { GrClose } from 'react-icons/gr'
 import { SearchSuggestionMenu } from './search-suggestion-menu'
 
-import { MovieData } from '../../../types'
+import { searchMovies } from '../../../api/movie-api'
+import { DataStatus, MovieData } from '../../../types'
 import style from './search-bar.module.scss'
 
+
+type SearchBar = DataStatus
 
 
 export const SearchBar = () => {
 
-    const [searchInput, setSearchInput] = useState('')
+    // const [searchInput, setSearchInput] = useState('')
+    const [movieSearchInput, setMovieSearchInput] = useState('')
+    const [seriesSearchInput, setSeriesSearchInput] = useState('')
+    const [searchingMovies, setSearchingMovies] = useState(false)
+    const [searchingSeries, setSearchingSeries] = useState(false)
     const [inputFocus, setInputFocus] = useState(false)
     const [showSuggestionMenu, setShowSuggestionMenu] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
 
-    const { data: SearchResultsData } = searchMovies(searchInput)
+    const location = useLocation()
     const navigate = useNavigate()
-    const [searchParams] = useSearchParams()
+    // const [searchParams] = useSearchParams()
+    // const searchParamsString = searchParams.get('query')?.toString()
 
-    const searchParamsString = searchParams.get('query')?.toString()
+    const { data: SearchResultsData } = searchMovies(movieSearchInput)
+
+    console.log('location.pathname: ', location.pathname)
 
 
     useEffect(() => {
-        if (searchParamsString) {
-            return setSearchInput(searchParamsString)
+        if (location.pathname.includes('/movies')) {
+            setSearchingMovies(true)
+            setSearchingSeries(false)
+        }
+        else if (location.pathname.includes('/series')) {
+            setSearchingSeries(true)
+            setSearchingMovies(false)
         }
     }, [])
+
+
+
+
+    // useEffect(() => {
+    //     if (searchParamsString) {
+    //         return setSearchInput(searchParamsString)
+    //     }
+    // }, [])
 
     const searchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         const searchTerm = e.target.value
-        setSearchInput(searchTerm)
+        // setSearchInput(searchTerm)
+        if (searchingMovies) {
+            setMovieSearchInput(searchTerm)
+        } else if (searchingSeries) {
+            setSeriesSearchInput(searchTerm)
+        }
+
     }
 
     const clearInputHandler = () => {
-        setSearchInput('')
+        setMovieSearchInput('')
+        setSeriesSearchInput('')
     }
 
     const inputFocusHandler = () => {
@@ -62,14 +93,31 @@ export const SearchBar = () => {
     const runSearchHandler = (e: SyntheticEvent) => {
         e.preventDefault()
         inputRef.current?.blur()
-        if (searchInput === '') return
 
-        return navigate({
-            pathname: '/movies/search',
-            search: createSearchParams({
-                query: searchInput
-            }).toString()
-        })
+        if (searchingMovies) {
+            if (movieSearchInput === '') {
+                return
+            } else {
+                return navigate({
+                    pathname: '/movies/search',
+                    search: createSearchParams({
+                        query: movieSearchInput
+                    }).toString()
+                })
+            }
+        } else if (searchingSeries) {
+            if (seriesSearchInput === '') {
+                return
+            } else {
+                return navigate({
+                    pathname: '/series/search',
+                    search: createSearchParams({
+                        query: seriesSearchInput
+                    }).toString()
+                })
+            }
+        }
+
     }
 
 
@@ -88,14 +136,14 @@ export const SearchBar = () => {
                         p-4
                         bg-transparent
                     `}
-                    placeholder='e.g. Superman'
+                    placeholder={`e.g. Superman'`}
                     onChange={searchInputHandler}
                     onFocus={inputFocusHandler}
                     onBlur={inputBlurHandler}
-                    value={searchInput}
+                    value={movieSearchInput || seriesSearchInput}
                 />
                 {
-                    searchInput !== '' &&
+                    movieSearchInput !== '' &&
                     <GrClose
                         className={`
                         w-12 h-12
@@ -113,7 +161,7 @@ export const SearchBar = () => {
                 </button>
             </form>
             {
-                searchInput !== '' &&
+                movieSearchInput !== '' &&
                 inputFocus &&
                 <SearchSuggestionMenu
                     data={SearchResultsData as MovieData}

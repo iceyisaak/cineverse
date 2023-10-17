@@ -5,7 +5,8 @@ import {
     getPopularMovies,
     getTopRatedMovies,
     getTrendingMovies,
-    getUpcomingMovies
+    getUpcomingMovies,
+    searchMovies
 } from '../../api/movie-api'
 import { HeroSection } from '../../components/sections'
 import { GenreSection } from '../../components/sections/main-section/genre-section'
@@ -24,6 +25,8 @@ export const MoviesPage = () => {
     const { data: UpcomingMoviesData, isLoading: UpcomingMoviesLoading, isError: UpcomingMoviesError } = getUpcomingMovies()
     const { data: DiscoverMoviesData, isLoading: DiscoverMoviesLoading, isError: DiscoverMoviesError } = getDiscoverMovies()
     const { data: GenreData, isLoading: GenreLoading, isError: GenreError } = getMovieGenres()
+    // const { data: SearchResultsData } = searchMovies(searchInput)
+
 
 
     return (
@@ -35,6 +38,8 @@ export const MoviesPage = () => {
             />
             <SearchBarSection
                 sectionHeading='Search Movies'
+            // data={SearchResultsData as MovieData}
+            // searchInput={searchInput}
             />
             <ShowCaseSection
                 sectionHeading='Popular Movies'

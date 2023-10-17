@@ -17,6 +17,7 @@ export function SearchPage() {
 
     const { data: SearchMoviesData } = searchMovies(searchParamsString, currentPage)
 
+
     const nextPageHandler = () => {
         if (currentPage === SearchMoviesData?.total_pages) return
         setCurrentPage(currentPage + 1)

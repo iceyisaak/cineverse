@@ -16,8 +16,6 @@ export const RootRouter = createBrowserRouter(
             <Route path="movies" element={<MoviesPage />} />
             <Route path="movies/:movieId" element={<DetailPage />} />
             <Route path="movies/search" element={<SearchPage />} />
-            {/* <Route path="movies/search/:movieSearchTerm" element={<SearchPage />} /> */}
-
 
             <Route path="series" element={<SeriesPage />} />
             <Route path="series/:seriesId" element={<DetailPage />} />

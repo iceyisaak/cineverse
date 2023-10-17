@@ -119,3 +119,18 @@ export const getSeriesDetail = (SERIES_ID?: number | undefined) => {
     })
 }
 
+export const searchSeries = (QUERY?: string | undefined, RESULT_PAGE?: number | undefined) => {
+
+    const APINAME = 'search'
+    const APIURL = `${BASEURL}/${APINAME}/${CINEMA_TYPE}${APIKEY}&query=${QUERY}${RESULT_PAGE !== undefined ? `&page=${RESULT_PAGE}` : ''}`
+
+    return useQuery({
+        queryKey: [QUERY, RESULT_PAGE],
+        queryFn: async () => {
+            const response = await axios.get(APIURL)
+            const data: unknown = await response.data
+            return data as SeriesData
+        },
+        enabled: QUERY !== undefined && QUERY !== ''
+    })
+}

@@ -23,6 +23,8 @@ export const SearchSuggestionMenu = ({ data: SearchResultsData, itemClickHandler
                     SearchResultsData?.results.length > 0 ?
                     SearchResultsData?.results
                         .map((searchResult) => (
+
+                            'title' in searchResult &&
                             <Link
                                 to={`/movies/${searchResult.id.toString()}/`}
                                 onMouseDown={itemClickHandler(`/movies/${searchResult?.id.toString()}/`)}
@@ -59,12 +61,57 @@ export const SearchSuggestionMenu = ({ data: SearchResultsData, itemClickHandler
                                     </p>
                                 </div>
                             </Link>
-                        )) :
+
+                            ||
+
+                            'name' in searchResult &&
+                            <Link
+                                to={`/series/${searchResult.id.toString()}/`}
+                                onMouseDown={itemClickHandler(`/series/${searchResult?.id.toString()}/`)}
+                                className={`${style.suggestion__list} m-2`}
+                                key={searchResult.id}
+                            >
+                                <div className={`${style.suggestion__thumbnail}`}>
+                                    <img
+                                        src={`${searchResult.poster_path ?
+                                            `${MOVIE_POSTER_URL}${searchResult.poster_path}` :
+                                            `https://placehold.co/70x100?text=N/A`
+                                            }`}
+                                        alt={`${searchResult &&
+                                            'name' in searchResult &&
+                                            searchResult?.name
+                                            }`}
+                                        className={`${style.suggestion__thumbnail__image} w-full h-48`}
+                                    />
+                                </div>
+                                <div className={`${style.suggestion__info} w-full px-4 py-10`}>
+                                    <h3 className='text-3xl w-full whitespace-nowrap overflow-hidden text-ellipsis'>
+                                        {
+                                            searchResult &&
+                                            'name' in searchResult &&
+                                            searchResult?.name
+                                        }
+                                    </h3>
+                                    <p className='text-3xl'>
+                                        {
+                                            searchResult &&
+                                            'first_air_date' in searchResult &&
+                                            searchResult?.first_air_date.slice(0, 4)
+                                        }
+                                    </p>
+                                </div>
+
+                            </Link>
+
+
+                        ))
+                    :
                     <div className='flex justify-center items-center h-full'>
                         <p className='text-5xl'>
-                            No Movie Found
+                            No Result Found
                         </p>
                     </div>
+
             }
         </article>
 

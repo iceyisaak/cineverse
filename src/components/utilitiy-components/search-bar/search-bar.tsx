@@ -1,5 +1,5 @@
 import { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from 'react'
-import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom'
 // import { searchMovies } from '../../../api/movie-api'
 
 import { BsSearch } from 'react-icons/bs'
@@ -7,7 +7,8 @@ import { GrClose } from 'react-icons/gr'
 import { SearchSuggestionMenu } from './search-suggestion-menu'
 
 import { searchMovies } from '../../../api/movie-api'
-import { DataStatus, MovieData } from '../../../types'
+import { searchSeries } from '../../../api/series-api'
+import { DataStatus, MovieData, SeriesData } from '../../../types'
 import style from './search-bar.module.scss'
 
 
@@ -30,7 +31,8 @@ export const SearchBar = () => {
     // const [searchParams] = useSearchParams()
     // const searchParamsString = searchParams.get('query')?.toString()
 
-    const { data: SearchResultsData } = searchMovies(movieSearchInput)
+    const { data: MovieSearchResult } = searchMovies(movieSearchInput)
+    const { data: SeriesSearchResult } = searchSeries(seriesSearchInput)
 
     console.log('location.pathname: ', location.pathname)
 
@@ -39,6 +41,7 @@ export const SearchBar = () => {
         if (location.pathname.includes('/movies')) {
             setSearchingMovies(true)
             setSearchingSeries(false)
+
         }
         else if (location.pathname.includes('/series')) {
             setSearchingSeries(true)
@@ -58,13 +61,11 @@ export const SearchBar = () => {
     const searchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         const searchTerm = e.target.value
-        // setSearchInput(searchTerm)
         if (searchingMovies) {
             setMovieSearchInput(searchTerm)
         } else if (searchingSeries) {
             setSeriesSearchInput(searchTerm)
         }
-
     }
 
     const clearInputHandler = () => {
@@ -143,7 +144,8 @@ export const SearchBar = () => {
                     value={movieSearchInput || seriesSearchInput}
                 />
                 {
-                    movieSearchInput !== '' &&
+                    movieSearchInput !== '' || seriesSearchInput !== ''
+                    &&
                     <GrClose
                         className={`
                         w-12 h-12
@@ -161,12 +163,24 @@ export const SearchBar = () => {
                 </button>
             </form>
             {
-                movieSearchInput !== '' &&
-                inputFocus &&
-                <SearchSuggestionMenu
-                    data={SearchResultsData as MovieData}
-                    itemClickHandler={itemClickHandler}
-                />
+                searchingMovies ?
+                    movieSearchInput !== '' &&
+                    inputFocus &&
+                    <SearchSuggestionMenu
+                        data={MovieSearchResult as MovieData}
+                        itemClickHandler={itemClickHandler}
+                    // sea={searchingMovies}
+                    />
+                    :
+                    searchingSeries ?
+                        seriesSearchInput !== '' &&
+                        inputFocus &&
+                        <SearchSuggestionMenu
+                            data={SeriesSearchResult as SeriesData}
+                            itemClickHandler={itemClickHandler}
+                        // searching={searchingSeries}
+                        />
+                        : null
             }
         </article >
     )

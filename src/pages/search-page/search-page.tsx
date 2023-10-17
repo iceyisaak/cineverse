@@ -5,17 +5,33 @@ import { SearchBarSection } from "../../components/sections/main-section/searchb
 import { Breadcrumbs } from "../../components/utilitiy-components/breadcrumbs";
 import { PaginationPanel } from "../../components/utilitiy-components/pagination-panel";
 
+import { searchSeries } from "../../api/series-api";
 import SearchSection from "../../components/sections/main-section/search-section/search-section";
-import { MovieData } from "../../types";
+import { CinemaType, MovieData, SeriesData } from "../../types";
 
 
-export function SearchPage() {
+type SearchPage = {
+    cinemaSearchType?: 'movies' | 'series'
+}
+
+export function SearchPage({ cinemaSearchType }: SearchPage) {
 
     const [currentPage, setCurrentPage] = useState(1)
     const [searchParams, setSearchParams] = useSearchParams()
     const searchParamsString = searchParams.get('query')?.toString()
 
-    const { data: SearchMoviesData } = searchMovies(searchParamsString, currentPage)
+    let movieSearchParam: string | undefined;
+    let seriesSearchParam: string | undefined;
+
+
+    if (cinemaSearchType === 'movies') {
+        movieSearchParam = searchParamsString
+    } else if (cinemaSearchType === 'series') {
+        seriesSearchParam = searchParamsString
+    }
+
+    const { data: SearchMoviesData } = searchMovies(movieSearchParam, currentPage)
+    const { data: SearchSeriesData } = searchSeries(seriesSearchParam, currentPage)
 
 
     const nextPageHandler = () => {
@@ -56,24 +72,45 @@ export function SearchPage() {
 
 
 
-
     return (
-        <>
-            <SearchBarSection />
-            <Breadcrumbs
-                data={SearchMoviesData as MovieData}
-            />
-            <SearchSection
-                data={SearchMoviesData as MovieData}
-            />
-            <PaginationPanel
-                currentPage={currentPage}
-                firstPageHandler={firstPageHandler}
-                prevPageHandler={prevPageHandler}
-                nextPageHandler={nextPageHandler}
-                lastPageHandler={lastPageHandler}
-                data={SearchMoviesData as MovieData}
-            />
-        </>
+
+        cinemaSearchType === 'movies' ?
+            <>
+                <SearchBarSection />
+                <Breadcrumbs
+                    data={SearchMoviesData as MovieData}
+                />
+                <SearchSection
+                    data={SearchMoviesData as MovieData}
+                />
+                <PaginationPanel
+                    currentPage={currentPage}
+                    firstPageHandler={firstPageHandler}
+                    prevPageHandler={prevPageHandler}
+                    nextPageHandler={nextPageHandler}
+                    lastPageHandler={lastPageHandler}
+                    data={SearchMoviesData as MovieData}
+                />
+            </>
+            :
+            cinemaSearchType === 'series' &&
+            <>
+                <SearchBarSection />
+                <Breadcrumbs
+                    data={SearchSeriesData as SeriesData}
+                />
+                <SearchSection
+                    data={SearchSeriesData as SeriesData}
+                />
+                <PaginationPanel
+                    currentPage={currentPage}
+                    firstPageHandler={firstPageHandler}
+                    prevPageHandler={prevPageHandler}
+                    nextPageHandler={nextPageHandler}
+                    lastPageHandler={lastPageHandler}
+                    data={SearchSeriesData as SeriesData}
+                />
+            </>
+
     )
 }

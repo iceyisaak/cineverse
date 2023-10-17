@@ -1,5 +1,5 @@
 import { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from 'react'
-import { createSearchParams, useLocation, useNavigate } from 'react-router-dom'
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 // import { searchMovies } from '../../../api/movie-api'
 
 import { BsSearch } from 'react-icons/bs'
@@ -20,16 +20,17 @@ export const SearchBar = () => {
     // const [searchInput, setSearchInput] = useState('')
     const [movieSearchInput, setMovieSearchInput] = useState('')
     const [seriesSearchInput, setSeriesSearchInput] = useState('')
-    const [searchingMovies, setSearchingMovies] = useState(false)
-    const [searchingSeries, setSearchingSeries] = useState(false)
+    const [cinemaSearchType, setCinemaSearchType] = useState<'movies' | 'series' | undefined>(undefined)
+    // const [searchingMovies, setSearchingMovies] = useState(false)
+    // const [searchingSeries, setSearchingSeries] = useState(false)
     const [inputFocus, setInputFocus] = useState(false)
     const [showSuggestionMenu, setShowSuggestionMenu] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
 
     const location = useLocation()
     const navigate = useNavigate()
-    // const [searchParams] = useSearchParams()
-    // const searchParamsString = searchParams.get('query')?.toString()
+    const [searchParams] = useSearchParams()
+    const searchParamsString = searchParams.get('query')?.toString()
 
     const { data: MovieSearchResult } = searchMovies(movieSearchInput)
     const { data: SeriesSearchResult } = searchSeries(seriesSearchInput)
@@ -39,31 +40,34 @@ export const SearchBar = () => {
 
     useEffect(() => {
         if (location.pathname.includes('/movies')) {
-            setSearchingMovies(true)
-            setSearchingSeries(false)
-
+            setCinemaSearchType('movies')
         }
         else if (location.pathname.includes('/series')) {
-            setSearchingSeries(true)
-            setSearchingMovies(false)
+            setCinemaSearchType('series')
         }
     }, [])
 
 
 
+    useEffect(() => {
+        if (cinemaSearchType === 'movies') {
+            if (searchParamsString) {
+                return setMovieSearchInput(searchParamsString)
+            }
+        } else if (cinemaSearchType === 'series') {
+            if (searchParamsString) {
+                return setSeriesSearchInput(searchParamsString)
+            }
+        }
+    }, [])
 
-    // useEffect(() => {
-    //     if (searchParamsString) {
-    //         return setSearchInput(searchParamsString)
-    //     }
-    // }, [])
 
     const searchInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         const searchTerm = e.target.value
-        if (searchingMovies) {
+        if (cinemaSearchType === 'movies') {
             setMovieSearchInput(searchTerm)
-        } else if (searchingSeries) {
+        } else if (cinemaSearchType === 'series') {
             setSeriesSearchInput(searchTerm)
         }
     }
@@ -95,7 +99,7 @@ export const SearchBar = () => {
         e.preventDefault()
         inputRef.current?.blur()
 
-        if (searchingMovies) {
+        if (cinemaSearchType === 'movies') {
             if (movieSearchInput === '') {
                 return
             } else {
@@ -106,7 +110,7 @@ export const SearchBar = () => {
                     }).toString()
                 })
             }
-        } else if (searchingSeries) {
+        } else if (cinemaSearchType === 'series') {
             if (seriesSearchInput === '') {
                 return
             } else {
@@ -163,7 +167,7 @@ export const SearchBar = () => {
                 </button>
             </form>
             {
-                searchingMovies ?
+                cinemaSearchType === 'movies' ?
                     movieSearchInput !== '' &&
                     inputFocus &&
                     <SearchSuggestionMenu
@@ -172,7 +176,7 @@ export const SearchBar = () => {
                     // sea={searchingMovies}
                     />
                     :
-                    searchingSeries ?
+                    cinemaSearchType === 'series' ?
                         seriesSearchInput !== '' &&
                         inputFocus &&
                         <SearchSuggestionMenu

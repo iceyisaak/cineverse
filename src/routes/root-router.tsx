@@ -15,11 +15,11 @@ export const RootRouter = createBrowserRouter(
 
             <Route path="movies" element={<MoviesPage />} />
             <Route path="movies/:movieId" element={<DetailPage />} />
-            <Route path="movies/search" element={<SearchPage />} />
+            <Route path="movies/search" element={<SearchPage cinemaSearchType='movies' />} />
 
             <Route path="series" element={<SeriesPage />} />
             <Route path="series/:seriesId" element={<DetailPage />} />
-            <Route path="series/search" element={<SearchPage />} />
+            <Route path="series/search" element={<SearchPage cinemaSearchType="series" />} />
 
             <Route path="*" element={<Page404 />} />
         </Route>

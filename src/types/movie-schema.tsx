@@ -1,14 +1,8 @@
-import { z } from 'zod'
 import { GenreData, MovieData, MovieDetailData, SeriesData, SeriesDetailData } from '.'
 
 
-export const SearchInputSchema = z.object({
-    text: z.string().trim().max(25)
-})
 
-
-
-export type CinemaType = 'movie' | 'series' | 'tv'
+export type CinemaType = 'movie' | 'tv' | undefined
 
 
 export type DataStatus = {

@@ -10,7 +10,7 @@ Cineverse is the cinema portal that allows users to look up information on movie
 3. Card Slider
 
 ## How to run the project
-1. Create `.env` file
+1. At the project root `/`, create `.env` file
 2. In the '`.env` file: add the following line
    ```
    VITE_TMDB_APIKEY=YOUR-TMDB-APIKEY

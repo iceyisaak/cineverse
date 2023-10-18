@@ -171,7 +171,6 @@ export const SearchBar = () => {
                     <SearchSuggestionMenu
                         data={MovieSearchResult as MovieData}
                         itemClickHandler={itemClickHandler}
-                    // sea={searchingMovies}
                     />
                     :
                     cinemaSearchType === 'series' ?
@@ -180,7 +179,6 @@ export const SearchBar = () => {
                         <SearchSuggestionMenu
                             data={SeriesSearchResult as SeriesData}
                             itemClickHandler={itemClickHandler}
-                        // searching={searchingSeries}
                         />
                         : null
             }

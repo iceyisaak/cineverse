@@ -64,6 +64,6 @@ Cineverse is the cinema portal that allows users to look up information on movie
     "vite": "^4.4.5"
 ```
 
-## Link to Project <br/>
+## Link to Project
 https://github.com/iceyisaak/cineverse/ 
 

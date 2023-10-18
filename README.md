@@ -20,16 +20,18 @@ Cineverse is the cinema portal that allows users to look up information on movie
    npm run dev
    ```
 
-## Technologies & Dependencies
+## Sources, Technologies, and Dependencies
 
-### API:
-- TMDB API
+### Sources
+- TMDB API: https://developer.themoviedb.org/docs
+- SVGrepo: https://www.svgrepo.com/
 
 ### Technologies:
 - ReactJS
 - TypeScript
 - TailwindCSS
 - SCSS
+- ReactIcons
 - ReactRouter
 - Axios
 - ReactQuery

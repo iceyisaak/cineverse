@@ -1,6 +1,5 @@
 import { ChangeEvent, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-// import { searchMovies } from '../../../api/movie-api'
 
 import { BsSearch } from 'react-icons/bs'
 import { GrClose } from 'react-icons/gr'
@@ -20,12 +19,9 @@ type CinemaSearchType = 'movies' | 'series' | undefined
 
 export const SearchBar = () => {
 
-    // const [searchInput, setSearchInput] = useState('')
     const [movieSearchInput, setMovieSearchInput] = useState('')
     const [seriesSearchInput, setSeriesSearchInput] = useState('')
     const [cinemaSearchType, setCinemaSearchType] = useState<CinemaSearchType>(undefined)
-    // const [searchingMovies, setSearchingMovies] = useState(false)
-    // const [searchingSeries, setSearchingSeries] = useState(false)
     const [inputFocus, setInputFocus] = useState(false)
     const [showSuggestionMenu, setShowSuggestionMenu] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
@@ -38,7 +34,6 @@ export const SearchBar = () => {
     const { data: MovieSearchResult } = searchMovies(movieSearchInput)
     const { data: SeriesSearchResult } = searchSeries(seriesSearchInput)
 
-    console.log('location.pathname: ', location.pathname)
 
 
     useEffect(() => {

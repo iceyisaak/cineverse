@@ -2,7 +2,7 @@ import { GenreData, MovieData, MovieDetailData, SeriesData, SeriesDetailData } f
 
 
 
-export type CinemaType = 'movie' | 'tv' | undefined
+export type CinemaType = 'movie' | 'tv' | 'all' | undefined
 
 
 export type DataStatus = {

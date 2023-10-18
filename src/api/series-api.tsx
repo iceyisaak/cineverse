@@ -134,3 +134,21 @@ export const searchSeries = (QUERY?: string | undefined, RESULT_PAGE?: number | 
         enabled: QUERY !== undefined && QUERY !== ''
     })
 }
+
+
+// https://api.themoviedb.org/3/trending/tv/day?APIKEY
+
+export const getTrendingSeries = () => {
+
+    const APINAME = 'trending'
+    const APIURL = `${BASEURL}/${APINAME}/${CINEMA_TYPE}/day${APIKEY}`
+
+    return useQuery({
+        queryKey: [APINAME],
+        queryFn: async () => {
+            const response = await axios.get(APIURL)
+            const data: unknown = await response.data
+            return data as SeriesData
+        }
+    })
+}

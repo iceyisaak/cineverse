@@ -4,8 +4,6 @@ import axios from "axios"
 import { APIKEY, BASEURL } from './api-constant'
 
 import { type CinemaType, type GenreData, type MovieData, type MovieDetailData } from '../types'
-// import { type GenreData } from "../types/genredata-schema"
-// import { type CinemaType } from "../types/movie-schema"
 
 
 

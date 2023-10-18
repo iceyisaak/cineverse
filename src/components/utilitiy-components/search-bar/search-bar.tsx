@@ -15,12 +15,15 @@ import style from './search-bar.module.scss'
 type SearchBar = DataStatus
 
 
+type CinemaSearchType = 'movies' | 'series' | undefined
+
+
 export const SearchBar = () => {
 
     // const [searchInput, setSearchInput] = useState('')
     const [movieSearchInput, setMovieSearchInput] = useState('')
     const [seriesSearchInput, setSeriesSearchInput] = useState('')
-    const [cinemaSearchType, setCinemaSearchType] = useState<'movies' | 'series' | undefined>(undefined)
+    const [cinemaSearchType, setCinemaSearchType] = useState<CinemaSearchType>(undefined)
     // const [searchingMovies, setSearchingMovies] = useState(false)
     // const [searchingSeries, setSearchingSeries] = useState(false)
     const [inputFocus, setInputFocus] = useState(false)

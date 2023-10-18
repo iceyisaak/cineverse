@@ -19,16 +19,19 @@ const SearchSection = ({ data }: SearchSection) => {
             {
                 data && 'total_results' in data && data?.total_results === 0 ?
                     <p className="text-6xl">
-                        - No Movies Found -
-                    </p> :
-
+                        - No Results Found -
+                    </p>
+                    :
                     <div className={`${style.result__container} flex flex-col justify-center self-center w-10/12`}>
                         <p className="text-2xl mb-6">
                             Total Results: {data && 'total_results' in data && data?.total_results} Item(s)
                         </p>
                         <article className={`inline-flex flex-wrap gap-8`}>
                             {
-                                data && 'results' in data && data?.results.map((movie) => (
+                                data &&
+                                'results' in data &&
+                                data?.results.map((movie) => (
+                                    'title' in movie &&
                                     <Link
                                         key={movie.id}
                                         className={`
@@ -55,7 +58,44 @@ const SearchSection = ({ data }: SearchSection) => {
                                             </p>
                                         </div>
                                     </Link>
+
+                                    ||
+
+                                    'name' in movie &&
+                                    <Link
+                                        key={movie.id}
+                                        className={`
+                                        ${style.result__card}
+                                        flex flex-wrap flex-col
+                                    `}
+                                        to={`/series/${movie.id.toString()}`}
+                                    >
+                                        <div className="inline-flex">
+                                            <img
+                                                src={`${movie?.poster_path ?
+                                                    `${MOVIE_POSTER_URL}${movie.poster_path}` :
+                                                    'https://placehold.co/200x300?text=No Poster Available'
+                                                    }`}
+                                                className={`${style.tile__img}`}
+                                            />
+                                        </div>
+                                        <div className="flex flex-wrap flex-col">
+                                            <p className="break-words text-2xl ">
+                                                {'name' in movie && movie?.name}
+                                            </p>
+                                            <p>
+                                                {'first_air_date' in movie && movie?.first_air_date.slice(0, 4) || '-'}
+                                            </p>
+                                        </div>
+                                    </Link>
+
+
                                 ))
+
+
+
+
+
                             }
                         </article>
                     </div>

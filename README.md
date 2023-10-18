@@ -2,12 +2,16 @@
 ###### Last Update: 20231018
 
 ## Project Description
-Cineverse is the cinema portal that allows users to look up information on movies and series including their details. 
+Cineverse is the cinema portal that allows users to:
+1. Lookup currently trending movies / series
+2. See movies / series details 
+3. Search movies / series by title
 
 ### Features
-1. Search Functionlity
-2. Hero Carousel
-3. Card Slider
+1. Hero Carousel
+2. Card Slider
+3. Search Movies / Series
+4. See Movies / Series in Detail
 
 ## How to run the project
 1. At the project root `/`, create `.env` file

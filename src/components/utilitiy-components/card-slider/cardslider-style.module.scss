@@ -12,6 +12,10 @@
         overflow-x: scroll;
         white-space: nowrap;
         transition: transform 0.3s;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     &__card {
